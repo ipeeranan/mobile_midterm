@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+  <script src="ejs.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+
+  <script>
+    // Initialize Firebase
+
+
+    var config = {
+      apiKey: "AIzaSyCiJFnIh2Qgm_TAEZq7eRjxXEK1VHxMkzA",
+      authDomain: "shopee-2fc08.firebaseapp.com",
+      databaseURL: "https://shopee-2fc08.firebaseio.com",
+      projectId: "shopee-2fc08",
+      storageBucket: "shopee-2fc08.appspot.com",
+      messagingSenderId: "485304648414"
+    };
+
+    firebase.initializeApp(config);
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    // Disable deprecated features
+    db.settings({
+      timestampsInSnapshots: true
+    });
+  </script>
+  <style>
+    .toolbaricon {
+      padding-left: 5px;
+      padding-bottom: 5px;
+      padding-right: 5px;
+      color: orange;
+    }
+  </style>
+</head>
+
+
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-icon class="toolbaricon" size="30px" icon="fa-shopping-bag">
+        </ons-icon>
+      </div>
+      <div class="center" id="appname">#</div>
+      <div class="right">
+        <ons-icon class="toolbaricon" size="30px" icon="md-help">
+        </ons-icon>
+      </div>
+    </ons-toolbar>
+
+    <ons-tabbar swipeable position="auto">
+      <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" badge="7" active>
+      </ons-tab>
+      <ons-tab page="tab2.html" label="Cart" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
+      </ons-tab>
+      <ons-tab page="tab3.html" label="Product" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
+      </ons-tab>
+    </ons-tabbar>
+  </ons-page>
+
+  <template id="tab1.html">
+    <ons-page id="Tab1">
+      <p style="text-align: center; margin-top: 10px;">
+        <ons-search-input placeholder="Search" onchange="ons.notification.alert('Searched for: ' + this.value)"></ons-search-input>
+      </p>
+      <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
+        <ons-carousel-item id="carousel1" style="background: url('images/1.jpg') no-repeat center; background-size: contain;">
+        </ons-carousel-item>
+        <ons-carousel-item id="carousel2" style="background: url('images/2.jpg') no-repeat center; background-size: contain;">
+        </ons-carousel-item>
+        <ons-carousel-item id="carousel3" style="background: url('images/3.jpg') no-repeat center; background-size: contain;">
+        </ons-carousel-item>
+      </ons-carousel>
+
+      <div id="icons"></div>
+
+      <script id="icon_template" type="text/template">
+        <ons-row style="height:120px" vertical-align="center">  
+        <% categories.forEach(function(category){%>  
+        <ons-col style="background:#66ff99;" width="33%">
+          <p style="text-align: center; margin: 10px;">
+            <ons-icon size="60px" icon="<%= category.icon %>"></ons-icon>
+          </p>
+          <p style="text-align: center; margin: 10px;" id="icon1_text">
+            <%= category.name %>
+          </p>
+        </ons-col>
+        <%});%>
+        </ons-row>
+        </script>
+
+
+    </ons-page>
+  </template>
+
+  <template id="tab2.html">
+    <ons-page id="Tab2">
+      <ons-list>
+        <ons-list-header>Shopping Cart</ons-list-header>
+        <div id="pic">
+
+        <script id="pic_template" type="text/template">
+          <% cart.forEach(function(cart){%>  
+        <ons-list-item>
+          <div class="left">
+            <img class="list-item__thumbnail" src="<%= cart.images %>">
+          </div>
+          <div class="center">
+            <span class="list-item__title"><%= cart.itemname %></span>
+            <span class="list-item__subtitle" style="color: blue"><%= cart.price %></span>
+          </div>
+          <div class="right">
+            <p style="text-align: center; margin: 10px;">
+              <ons-icon style="color: grey" size="30px" icon="md-delete"></ons-icon>
+            </p>
+          </div>
+        </ons-list-item>
+        <%});%>
+
+      </script>
+      </ons-list>
+      <p style="text-align: center; margin: 10px;">
+        <ons-button modifier="large">PROCEED TO PAY</ons-button>
+      </p>
+    </ons-page>
+  </template>
+
+  <template id="tab3.html">
+    <ons-page id="Tab3">
+      <div id="pro"></div>
+
+        <script id="pro_template" type="text/template">
+           
+<ons-row> <% product.forEach(function(product){%>
+  <ons-col width="33%">
+      <img class="" src="<%= product.photo %>"width="99%"height="100px">
+      <%= product.type %> <br>
+      <%= product.name %> <br>
+
+  <%= product.price %></ons-col>  <%});%>
+</ons-row>
+          
+
+          </script>
+</ons-page>
+</template>
+</body>
+<script>
+  getHomeData();
+  document.addEventListener('prechange', function (event) {
+    if (event.index == 0) {
+      console.log('Home clicked');
+      // get data for home screen  
+      getHomeData();
+    } else if (event.index == 1) {
+      console.log('Cart clicked');
+      // get data for cart screen  
+      getCartData();
+    }
+    else if (event.index == 2) {
+      console.log('p clicked');
+      // get data for cart screen  
+      getproductData();
+    }
+  });
+  function getHomeData() {
+    var docRef = db.collection("UI").doc("home");
+    docRef.get().then(function (doc) {
+
+      if (doc.exists) {
+
+        //display data
+        console.log("Document data:", doc.data());
+        var data = doc.data();
+        $('#appname').html(data.appname);
+        var style = "background: url('" + data.slides[0] + "') no-repeat center; background-size: contain;'";
+        $('#carousel1').attr('style', style);
+        var style = "background: url('" + data.slides[1] + "') no-repeat center; background-size: contain;'";
+        $('#carousel2').attr('style', style);
+        var style = "background: url('" + data.slides[2] + "') no-repeat center; background-size: contain;'";
+        $('#carousel3').attr('style', style);
+        var icon_template = $('#icon_template').html();
+        var html = ejs.render(icon_template, { categories: data.categories });
+        $('#icons').html(html);
+
+      } else {
+        console.log("No such document!");
+      }
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
+
+    // $.getJSON('home.json', function (data) {
+    //   console.log(data);
+    // $('#appname').html(data.appname);
+    //   var style = "background: url('images/" + data.slides[0] + "') no-repeat center; background-size: contain;'";
+    //   $('#carousel1').attr('style', style)
+    //   var icon_template = $('#icon_template').html();
+    // var html = ejs.render(icon_template, {categories : data.categories});
+    //   $('#icons').html(html);
+    // });
+  }
+  function getCartData() {
+    var docRef = db.collection("UI").doc("cart");
+    docRef.get().then(function (doc) {
+
+      if (doc.exists) {
+
+        //display data
+        console.log("Document data:", doc.data());
+        var data = doc.data();
+        var pic_template = $('#pic_template').html();
+        var html = ejs.render(pic_template, { cart: data.cart });
+        $('#pic').html(html);
+      } else {
+        console.log("No such document!");
+      }
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
+
+  }
+
+
+  function getproductData() {
+    var docRef = db.collection("UI").doc("product");
+    docRef.get().then(function (doc) {
+
+      if (doc.exists) {
+
+        //display data
+        console.log("Document data:", doc.data());
+        var data = doc.data();
+        var pro_template = $('#pro_template').html();
+        var html = ejs.render(pro_template, { product: data.product });
+        $('#pro').html(html);
+      } else {
+        console.log("No such document!");
+      }
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
+
+  }
+</script>
+
+</html>
