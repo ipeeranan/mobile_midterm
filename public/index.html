@@ -110,29 +110,34 @@
         <ons-list-header>Shopping Cart</ons-list-header>
         <div id="pic">
 
-        <script id="pic_template" type="text/template">
+          <script id="pic_template" type="text/template">
           <% cart.forEach(function(cart){%>  
         <ons-list-item>
           <div class="left">
-            <img class="list-item__thumbnail" src="<%= cart.images %>">
+            <img class="list-item__thumbnail" src="<%= cart.photo %>">
           </div>
           <div class="center">
-            <span class="list-item__title"><%= cart.itemname %></span>
+            <span class="list-item__title"><%= cart.name %></span>
             <span class="list-item__subtitle" style="color: blue"><%= cart.price %></span>
           </div>
           <div class="right">
             <p style="text-align: center; margin: 10px;">
-              <ons-icon style="color: grey" size="30px" icon="md-delete"></ons-icon>
+              <ons-icon style="color: black" size="30px" icon="md-delete"></ons-icon>
             </p>
           </div>
         </ons-list-item>
         <%});%>
-
-      </script>
+      
+        </script>
+        </div>
+    
       </ons-list>
+      <div>
       <p style="text-align: center; margin: 10px;">
-        <ons-button modifier="large">PROCEED TO PAY</ons-button>
+        <button class="button--large--cta" style="width: 95%; margin: 0 auto;">PROCEED TO PAY</button>
+        <!--<ons-button modifier="large">PROCEED TO PAY</ons-button>-->
       </p>
+    </div>
     </ons-page>
   </template>
 
@@ -212,7 +217,7 @@
     // });
   }
   function getCartData() {
-    var docRef = db.collection("UI").doc("cart");
+    var docRef = db.collection("UI").doc("Cart");
     docRef.get().then(function (doc) {
 
       if (doc.exists) {
@@ -231,6 +236,26 @@
     });
 
   }
+
+    var docRef = db.collection("UI").doc("cart");
+    docRef.get().then(function (doc) {
+
+      if (doc.exists) {
+
+        //display data
+        console.log("Document data:", doc.data());
+        var data = doc.data();
+        var pic_template = $('#pic_template').html();
+        var html = ejs.render(pic_template, { cart: data.cart });
+        $('#pic').html(html);
+      } else {
+        console.log("No such document!");
+      }
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
+
+
 
 
   function getproductData() {
