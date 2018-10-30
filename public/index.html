@@ -109,11 +109,11 @@
 
   <template id="tab2.html">
     <ons-page id="Tab2">
-      <div id="ShowDetail"></div>
+      <div id="ShowDetailCart"></div>
       <div>
         <ons-list>
           <ons-list-header>Shopping Cart</ons-list-header>
-          <div id="ShowData"></div>
+          <div id="ShowDataCart"></div>
           <div>
             <script id="cart_template" type="text/template">
           <ons-list>
@@ -239,7 +239,7 @@
 <script>
 
   getHomeData();
-  checksearch();
+  CheckSearch();
   document.addEventListener('prechange', function (event) {
     if (event.index == 0) {
       console.log('Home clicked');
@@ -306,25 +306,21 @@
 
   function getCartData() {
     console.log(dataCart);
-    document.getElementById('ShowData').innerHTML = '';
+    document.getElementById('ShowDataCart').innerHTML = '';
     dataCart.forEach(function (dataCart) {
       var apr = db.collection("PRODUCT").where("title", "==", dataCart);
       apr.get().then(function (querySnapshot) {
         console.log(querySnapshot.docs)
         var cart_template = $('#cart_template').html();
         var html = ejs.render(cart_template, { cartData: querySnapshot.docs });
-        $('#ShowData').append(html);
+        $('#ShowDataCart').append(html);
       })
     })
   }
 
  
   function addNewData() {
-    var data = {
-      pid: 5,
-      title: 'iphoneXS',
-      price: 50000,
-      category: 'electronic'
+
     }
     db.collection("PRODUCT").add(data)
       .then(function (querySnapshot) {
@@ -336,7 +332,7 @@
       .catch(function (error) {
         console.log("Error getting documents: ", error);
       });
-  }
+  
 
   
   //Show all Products
@@ -410,9 +406,9 @@
 
   }
 
-  //checksearch_with_datainfirebase
+  //CheckSearch_with_datainfirebase
   const data = []
-  function checksearch() {
+  function CheckSearch() {
     console.log(search);
     db.collection("PRODUCT").get()
       .then(function (querySnapshot) {
