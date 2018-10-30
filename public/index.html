@@ -109,11 +109,11 @@
 
   <template id="tab2.html">
     <ons-page id="Tab2">
-      <div id="showDetaiCrat"></div>
+      <div id="ShowDetail"></div>
       <div>
         <ons-list>
           <ons-list-header>Shopping Cart</ons-list-header>
-          <div id="showDataCart"></div>
+          <div id="ShowData"></div>
           <div>
             <script id="cart_template" type="text/template">
           <ons-list>
@@ -306,14 +306,14 @@
 
   function getCartData() {
     console.log(dataCart);
-    document.getElementById('showDataCart').innerHTML = '';
+    document.getElementById('ShowData').innerHTML = '';
     dataCart.forEach(function (dataCart) {
       var apr = db.collection("PRODUCT").where("title", "==", dataCart);
       apr.get().then(function (querySnapshot) {
         console.log(querySnapshot.docs)
         var cart_template = $('#cart_template').html();
         var html = ejs.render(cart_template, { cartData: querySnapshot.docs });
-        $('#showDataCart').append(html);
+        $('#ShowData').append(html);
       })
     })
   }
