@@ -156,7 +156,7 @@
       <div id="allProduct">
 
       </div>
-      <script id="allP_template" type="text/template">
+      <script id="AllProduct_template" type="text/template">
         <ons-row >
       <% allProduct.forEach(function(allProduct){
         var item = allProduct.data(); %> 
@@ -344,7 +344,7 @@
     if (name == null) {
       db.collection("PRODUCT").get()
         .then(function (querySnapshot) {
-          var product_template = $('#allP_template').html();
+          var product_template = $('#AllProduct_template').html();
           console.log(querySnapshot.docs);
           var html = ejs.render(product_template, { allProduct: querySnapshot.docs });
           $('#allProduct').html(html);
@@ -356,7 +356,7 @@
       localStorage.clear();
       db.collection("PRODUCT").where("category", "==", name).get()
         .then(function (querySnapshot) {
-          var product_template = $('#allP_template').html();
+          var product_template = $('#AllProduct_template').html();
           console.log(querySnapshot.docs);
           var html = ejs.render(product_template, { allProduct: querySnapshot.docs });
           $('#allProduct').html(html);
@@ -426,8 +426,8 @@
   //showsearch_product
   function showsearch_product(title) {
     console.log("title_pro", title);
-    var allP_template = $('#allP_template').html();
-    var html = ejs.render(allP_template, { allProduct: title });
+    var AllProduct_template = $('#AllProduct_template').html();
+    var html = ejs.render(AllProduct_template, { allProduct: title });
     $('#allProduct').html(html);
   }
 </script>
