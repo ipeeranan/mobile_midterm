@@ -320,7 +320,11 @@
 
  
   function addNewData() {
-
+    var data = {
+      pid: 5,
+      title: 'iphoneXS',
+      price: 50000,
+      category: 'electronic'
     }
     db.collection("PRODUCT").add(data)
       .then(function (querySnapshot) {
@@ -332,7 +336,7 @@
       .catch(function (error) {
         console.log("Error getting documents: ", error);
       });
-  
+  }
 
   
   //Show all Products
