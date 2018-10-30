@@ -39,7 +39,7 @@
       padding-left: 5px;
       padding-bottom: 5px;
       padding-right: 5px;
-      color: orange;
+      color: red;
     }
   </style>
 </head>
@@ -66,8 +66,6 @@
         <ons-tab page="tab2.html" label="Cart" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
         </ons-tab>
         <ons-tab page="tab3.html" label="Product" icon="md-apps" active-icon="md-apps">
-        </ons-tab>
-        <ons-tab page="tab4.html" label="Account" icon="md-account" active-icon="md-account">
         </ons-tab>
       </ons-tabbar>
     </ons-page>
@@ -272,7 +270,7 @@
       getAccountData();
     }
   });
-  //================================================================================================================================
+  
   function getHomeData() {
     var docRef = db.collection("UI").doc("home");
     docRef.get().then(function (doc) {
@@ -299,7 +297,7 @@
       console.log("Error getting document:", error);
     });
   }
-  //================================================================================================================================
+ 
   var dataCart = [];
   function addtocart(addtocart) {
     localStorage.clear('quentinTarantino');
@@ -324,7 +322,7 @@
     })
   }
 
-  //=============================================================================================================================================
+ 
   function addNewData() {
     var data = {
       pid: 5,
@@ -344,15 +342,15 @@
       });
   }
 
-  //================================================================================================================================
-  //data_account
+  
+  //AccountData
   function getAccountData() {
 
 
 
   }
-  //================================================================================================================================
-  //show_all_product
+  
+  //Show all Products
   function getallProduct(name, item) {
     if (name == null) {
       db.collection("PRODUCT").get()
@@ -380,8 +378,8 @@
     }
   }
 
-  //===================================================================================================================================
-  //detail_product
+  
+  //Products detail
   function showDetailproduct() {
     var dataproduct = localStorage.getItem('getDetailproduct');
     var apr = db.collection("PRODUCT").where("title", "==", dataproduct);
@@ -392,20 +390,22 @@
     })
 
   }
+
   //change_tab_category
   function change_tab(name) {
     console.log(name);
     document.getElementById('tabbar').setActiveTab(2);
     localStorage.setItem('name', name)
   }
-  //detailproduct
+
+  //detail products
   function getDetailproduct(getDetailproduct) {
     localStorage.setItem("getDetailproduct", getDetailproduct)
     showDetailproduct();
     myNavigator.pushPage('detailProduct.html');
   }
-  //================================================================================================================================
-  //get_search
+
+  //searchbar
   function search(search) {
     const filterItems = (needle, heystack) => {
       let query = needle.toLowerCase();
@@ -420,6 +420,7 @@
     document.getElementById('tabbar').setActiveTab(2);
 
   }
+
   //checksearch_with_datainfirebase
   const data = []
   function checksearch() {
@@ -432,6 +433,7 @@
         });
       })
   }
+
   //showsearch_product
   function showsearch_product(title) {
     console.log("title_pro", title);
