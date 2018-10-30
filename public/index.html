@@ -171,7 +171,7 @@
       </div>
     </ons-page>
   </template>
-  
+
   <template id="detailProduct.html">
       <ons-page>
         <script>
@@ -300,7 +300,7 @@
     console.log(dataCart);
     document.getElementById('showDataCart').innerHTML = '';
     dataCart.forEach(function(dataCart){
-      var apr = db.collection("products").where("title", "==",dataCart);
+      var apr = db.collection("PRODUCT").where("title", "==",dataCart);
       apr.get().then(function (querySnapshot) {
         console.log(querySnapshot.docs)
         var cart_template = $('#cart_template').html();
