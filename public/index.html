@@ -212,6 +212,7 @@
                </ons-carousel>
                     <% dataDetailproduct.forEach(function(dataDetailproduct){   
                       var data = dataDetailproduct.data(); %>
+                      <img src=" <%= data.photo%>" alt=""height="300px"width="100%">
                 <div class="title">
                   <%= data.price%>
                 </div>
@@ -403,7 +404,7 @@
     console.log("search", filterItems(search, data));
     var item = filterItems(search, data);
     console.log("search_item", item)
-    localStorage.setItem('items', item);
+    //localStorage.setItem('items', item);
     console.log('item', item);
     showsearch_product(item);
     document.getElementById('tabbar').setActiveTab(2);
